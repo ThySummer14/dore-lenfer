@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local scratch output
+out/
+
+# Gallery iteration history stays local — final plates and detail crops are
+# tracked, the full versions/ log of large PNGs is not.
+DORE_INFERNO/*/versions/
+
+# macOS
+.DS_Store
