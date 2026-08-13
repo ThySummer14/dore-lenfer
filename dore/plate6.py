@@ -47,6 +47,8 @@ def make_darkmap6(cfg, ss_div=4):
     # faint sickly light from above-left
     light = 0.12 * np.exp(-(((x - 900) / 900.0) ** 2 + ((y - 300) / 700.0) ** 2))
     d = np.clip(base - light, 0.0, 1.0)
+    # keep the caption band clean paper
+    d = d * (1.0 - 0.85 * smooth01((y - 2217.0) / 60.0))
     im = Image.fromarray((d * 255).astype(np.uint8)).resize((W, H), Image.BICUBIC)
     return np.asarray(im, np.float32) / 255.0
 

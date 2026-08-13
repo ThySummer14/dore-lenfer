@@ -16,6 +16,9 @@ final plate, detail crops and a `versions/` iteration history):
 - **Chant IV** — `Chant_IV_Le_Noble_Chateau/DORE_LE_NOBLE_CHATEAU.png`
 - **Chant V** — `Chant_V_Paolo_et_Francesca/DORE_PAOLO_ET_FRANCESCA.png`
 - **Chant VI** — `Chant_VI_Cerbere/DORE_CERBERE.png`
+- **Chant VII** — `Chant_VII_Les_Avares/DORE_LES_AVARES.png`
+- **Chant VIII** — `Chant_VIII_La_Barque_de_Phlegyas/DORE_LA_BARQUE_DE_PHLEGYAS.png`
+- **Chant IX** — `Chant_IX_L_Ange_ouvre_les_Portes/DORE_L_ANGE_OUVRE_LES_PORTES.png`
 
 Gallery index: `DORE_INFERNO/README.md`.
 
@@ -122,7 +125,53 @@ the circle of mud, Ciacco rises from the sludge to speak with the pilgrims.
 
 Detail crops: `DORE_INFERNO/Chant_VI_Cerbere/detail_*.png`.
 Iteration history: `DORE_INFERNO/Chant_VI_Cerbere/versions/`.
-Inspector: none yet — use the generic `dore/eye.py report` path for now.
+Inspector: none yet — `dore/eye.py critic` falls back to the generic report
+for this canto.
+
+## Canto VII — `dore/plate7.py`
+
+**`DORE_INFERNO/Chant_VII_Les_Avares/DORE_LES_AVARES.png`** — 2200 × 2860:
+the fourth circle. Two crowds of pale naked bodies push great sacks and
+boulders along opposing arcs and crash in the middle; Plutus roars on a rock
+ledge (horns, bloody mouth, raised arms); endless little pushing columns on
+the far ledges; Dante and Virgil watch from the cliff edge.
+
+> DANTE · L'ENFER — CHANT SEPTIÈME — LES AVARES ET LES PRODIGUES
+> G. Doré inv. & sculp. — PARIS · M DCCC LXI
+
+Detail crops: `DORE_INFERNO/Chant_VII_Les_Avares/detail_*.png`.
+Iteration history: `DORE_INFERNO/Chant_VII_Les_Avares/versions/`.
+Inspector: none yet — generic report fallback as above.
+
+## Canto VIII — `dore/plate8.py`
+
+**`DORE_INFERNO/Chant_VIII_La_Barque_de_Phlegyas/DORE_LA_BARQUE_DE_PHLEGYAS.png`** —
+2200 × 2860: the Styx marsh. Phlegyas poles the ferry with Dante and Virgil
+aboard; Filippo Argenti seizes the gunwale and Virgil shoves him off; the
+wrathful tear each other in the mud; far away the towers of the city of Dis
+blaze, smoke covers the sky, the water mirrors the firelight.
+
+> DANTE · L'ENFER — CHANT HUITIÈME — LA BARQUE DE PHLÉGYAS
+> G. Doré inv. & sculp. — PARIS · M DCCC LXI
+
+Detail crops: `DORE_INFERNO/Chant_VIII_La_Barque_de_Phlegyas/detail_*.png`.
+Iteration history: `DORE_INFERNO/Chant_VIII_La_Barque_de_Phlegyas/versions/`.
+Inspector: none yet — generic report fallback as above.
+
+## Canto IX — `dore/plate9.py`
+
+**`DORE_INFERNO/Chant_IX_L_Ange_ouvre_les_Portes/DORE_L_ANGE_OUVRE_LES_PORTES.png`** —
+2200 × 2860: the angel opens the gates of Dis. Striding over the Stygian
+water, he waves a reed wand; a blinding white fissure splits the black iron
+gate; fog draws back on both sides; demons scatter; the three Furies howl
+from the ramparts; on the bank Virgil shields Dante's eyes.
+
+> DANTE · L'ENFER — CHANT NEUVIÈME — L'ANGE OUVRE LES PORTES DE DIT
+> G. Doré inv. & sculp. — PARIS · M DCCC LXI
+
+Detail crops: `DORE_INFERNO/Chant_IX_L_Ange_ouvre_les_Portes/detail_*.png`.
+Iteration history: `DORE_INFERNO/Chant_IX_L_Ange_ouvre_les_Portes/versions/`.
+Inspector: none yet — generic report fallback as above.
 
 ## The engine — `dore/plate.py`
 
@@ -193,7 +242,7 @@ and use the numeric diagnostics (`dore_eye_metrics` / `dore_eye_ink`) as
 cross-checks. The ASCII views remain the fallback for image-blind models,
 which is what this toolkit was invented for.
 
-The render engines live in `dore/plate.py` … `dore/plate6.py` (one per canto;
+The render engines live in `dore/plate.py` … `dore/plate9.py` (one per canto;
 each is a standalone script sharing the stroke primitives of `plate.py`).
 `plate.py` also hosts the shared primitives: supersampling helper `S`, ink
 layers via `strokes_layer`/`poly_mask`/`grad_mask`, `draw_hatch` (jittered,
@@ -201,6 +250,28 @@ dashed, full two-sided coverage), `contour_strokes`, fbm noise, tone-field
 (`make_darkmap`), paper (`make_paper`), fonts and frame/caption drawing.
 
 Run: `python3 dore/plateN.py <out>.png`
+
+## Review campaign — `dore/healthcheck.py`
+
+All nine plates passed a multi-round review with the invented vision:
+
+- **Round 1** — batch health check across the gallery: found caption-zone
+  contamination on Chants I (vortex/ray strokes crossing y=2225), II (tree
+  roots reaching into the caption) and IX (fog layer overshooting), plus a
+  too-dark caption band on Chants VI–IX (the 0.24-coefficient paper shade
+  darkened the letterpress area).
+- **Round 2** — fixes: clipped vortex rings/slivers/rays at y=2225 in
+  `plate.py`, raised tree bases/roots and the path end in `plate2.py`,
+  clipped the fog layer in `plate9.py`, and added a caption-zone fade to the
+  darkmaps of plates 6–9. Re-rendered all six affected plates.
+- **Round 3** — full regression: every plate's region stats re-checked against
+  its target ranges; confirmed the Chant II sky L/R difference (≈13 points) is
+  natural fbm cloud variation; found and fixed a poetic error — the crescent
+  moon's lit limb now faces the forest light.
+- **Round 4** — final health check: all nine caption zones clean
+  (ink ≤ 0.4 %), seams intact, FFT regularity ≤ 0.13 % everywhere.
+
+Run: `python3 dore/healthcheck.py`
 
 ## Bugs the vision caught (and their fixes)
 

@@ -202,10 +202,10 @@ return {
 
     harness.registerTool(ctx, harness.defineTool({
       name: 'dore_eye_critic',
-      description: 'Run the per-canto critic script (critic1..critic5 from dore/) on an image: full ASCII view plus that scene\'s region checks with expected tone ranges.',
+      description: 'Run the per-canto critic script on an image: full ASCII view plus scene-specific region checks with expected tone ranges. Critics exist for cantos 1..5; any other canto (or image without a critic) falls back to the generic full report.',
       parameters: {
         path: { type: 'string', required: true, description: 'Image path (PNG or JPG).' },
-        canto: { type: 'integer', description: 'Canto number 1..5; when omitted, guessed from a chant_N part of the path.' },
+        canto: { type: 'integer', description: 'Canto number; when omitted, guessed from a chant_N part of the path.' },
       },
       output: stringOut,
       async execute(args) {

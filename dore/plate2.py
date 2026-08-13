@@ -149,7 +149,8 @@ def layer_moon_erase(cfg):
     L = Image.new("RGBA", size, (0, 0, 0, 0))
     d = ImageDraw.Draw(L)
     mx, my = cfg["moon"]
-    d.ellipse((S(cfg, mx - 40), S(cfg, my - 52), S(cfg, mx + 34), S(cfg, my + 30)),
+    # erase disc offset down-right: the lit limb faces the forest light
+    d.ellipse((S(cfg, mx - 34), S(cfg, my - 30), S(cfg, mx + 40), S(cfg, my + 52)),
               fill=cfg["paper"] + (255,))
     return L
 
@@ -181,7 +182,7 @@ def layer_treeline(cfg):
 # the winding path of last light
 # ----------------------------------------------------------------------------
 def path_centerline():
-    return [(1106, 2240), (1090, 2140), (1032, 2045), (1006, 1955), (1060, 1870),
+    return [(1106, 2226), (1090, 2140), (1032, 2045), (1006, 1955), (1060, 1870),
             (1012, 1785), (1052, 1690), (1018, 1600), (1068, 1505), (1100, 1400),
             (1100, 1300)]
 
@@ -295,10 +296,10 @@ def layer_trees(cfg):
     d = ImageDraw.Draw(L)
     # (base_x, base_y, top_x, top_y, base_w, bend, alpha, bark_seed)
     trees = [
-        (250, 2270, 470, 820, 46, 60, 240, 1),
-        (168, 2260, 300, 1160, 34, 40, 205, 2),
-        (2040, 2270, 1740, 880, 44, -70, 240, 3),
-        (1930, 2260, 2060, 1250, 30, -30, 200, 4),
+        (250, 2215, 470, 820, 46, 60, 240, 1),
+        (168, 2208, 300, 1160, 34, 40, 205, 2),
+        (2040, 2215, 1740, 880, 44, -70, 240, 3),
+        (1930, 2208, 2060, 1250, 30, -30, 200, 4),
         (706, 2190, 780, 1490, 18, 20, 165, 5),
     ]
     trunk_masks = []
@@ -316,7 +317,7 @@ def layer_trees(cfg):
         # roots
         for ra, rl in ((-0.9, 60), (0.9, 55), (-1.4, 40), (1.35, 44)):
             d.line((S(cfg, bx), S(cfg, by - 8),
-                    S(cfg, bx + math.cos(ra) * rl), S(cfg, by - 8 + math.sin(ra) * rl * 0.5 + 26)),
+                    S(cfg, bx + math.cos(ra) * rl), S(cfg, by - 8 + math.sin(ra) * rl * 0.5 + 14)),
                    fill=ink_rgba(cfg, alpha - 20), width=5)
         # branches
         def branch(x, y, ang, ln, w, depth):

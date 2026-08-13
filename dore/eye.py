@@ -141,7 +141,10 @@ def op_critic(path, canto):
     suffix = "" if canto == 1 else str(canto)
     script = os.path.join(os.path.dirname(os.path.abspath(__file__)), f"critic{suffix}.py")
     if not os.path.exists(script):
-        raise SystemExit(f"no critic for canto {canto} ({script})")
+        # no per-canto critic yet → degrade gracefully to the generic report
+        text, _ = op_report(path)
+        return (f"# no critic{suffix}.py yet — generic report for {path}\n\n{text}",
+                {"canto": canto, "fallback": "generic-report"})
     proc = subprocess.run([sys.executable, script, path],
                           capture_output=True, text=True, timeout=180)
     if proc.returncode != 0:

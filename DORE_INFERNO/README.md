@@ -69,9 +69,39 @@ critic.py / critic2.py / critic3.py 为自建视觉检查器）。
 
 > DANTE · L'ENFER — CHANT SIXIÈME — CERBÈRE
 
+## Chant VII — Les Avares et les Prodigues · 贪婪者与挥霍者
+
+`Chant_VII_Les_Avares/DORE_LES_AVARES.png` (2200×2860)
+
+第四圈：两群苍白裸躯沿弧线推着巨袋与巨石相向而行、在中央相撞；
+岩架上咆哮的普鲁托斯（角、血口、高举双臂）；远处岩架上无尽的小
+推石行列；但丁与维吉尔在崖边观望。
+
+> DANTE · L'ENFER — CHANT SEPTIÈME — LES AVARES ET LES PRODIGUES
+
+## Chant VIII — La Barque de Phlégias · 弗列格亚斯的渡船
+
+`Chant_VIII_La_Barque_de_Phlegyas/DORE_LA_BARQUE_DE_PHLEGYAS.png` (2200×2860)
+
+斯提克斯沼泽：弗列格亚斯撑篙渡船，但丁与维吉尔乘舟；腓力波·阿尔真蒂
+抓住船舷被维吉尔推开；愤怒者在泥水中互相厮打；远处狄斯城塔楼火光
+冲天、浓烟蔽空、水面映着火光。
+
+> DANTE · L'ENFER — CHANT HUITIÈME — LA BARQUE DE PHLÉGYAS
+
+## Chant IX — L'Ange ouvre les Portes · 天使开启狄斯城之门
+
+`Chant_IX_L_Ange_ouvre_les_Portes/DORE_L_ANGE_OUVRE_LES_PORTES.png` (2200×2860)
+
+天使踏着斯提克斯之水而来，挥动苇杖；黑色铁门中央裂开一道耀眼白光；
+浓雾向两侧退开；恶魔四散奔逃；城头复仇三女神举臂咆哮；岸边维吉尔
+伸手遮住但丁的双眼。
+
+> DANTE · L'ENFER — CHANT NEUVIÈME — L'ANGE OUVRE LES PORTES DE DIT
+
 ---
 
 每章文件夹内含最终版画、细节裁剪图与 `versions/`（全部迭代历史）。
-生成：`python3 dore/plateN.py <名字>.png`（N=1..6）
+生成：`python3 dore/plateN.py <名字>.png`（N=1..9）
 自检：`python3 dore/criticN.py <路径>.png`，或统一入口
 `python3 dore/eye.py critic <路径>.png --canto N`（详见 `../README.md`）。

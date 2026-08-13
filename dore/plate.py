@@ -278,6 +278,8 @@ def layer_vortex(cfg, dark_low, n_low):
         for j in range(N + 1):
             th = 2 * math.pi * j / N
             is_gap = (th >= ga and th <= gb) if ga <= gb else (th >= ga or th <= gb)
+            if j < N and pts[j][1] > S(cfg, 2225):
+                is_gap = True  # clip below the content boundary
             if is_gap or j == N:
                 if len(cur) > 2:
                     t0 = 2 * math.pi * (j - len(cur)) / N
@@ -302,6 +304,8 @@ def layer_vortex(cfg, dark_low, n_low):
         r = rng.uniform(500, cfg["r_max"])
         px = cx + r * math.cos(th + rot) * ex
         py = cy + r * math.sin(th + rot) * ey
+        if py > 2225:
+            continue
         ang_deg = math.degrees(math.atan2(px - cx, py - cy))
         in_corr = abs(ang_deg) < 20 and r < 1100
         dr = bilinear(dark_low, px / 4.0, py / 4.0)
@@ -339,6 +343,8 @@ def layer_rays(cfg, dark_low):
             py = cy + r * math.cos(ang) - off * math.sin(ang)
             pts.append((px, py))
         for k in range(segs):
+            if pts[k][1] > 2225 or pts[k + 1][1] > 2225:
+                continue
             dr = bilinear(dark_low, pts[k][0] / 4.0, pts[k][1] / 4.0)
             r0 = math.hypot(pts[k][0] - cx, pts[k][1] - cy)
             fade_in = smooth01((r0 - 150) / 350.0)
@@ -354,12 +360,14 @@ def layer_rays(cfg, dark_low):
         bend = rng.uniform(-40, 40)
         midx = cx + (r0 + r1) / 2 * math.sin(ang) + bend
         midy = cy + (r0 + r1) / 2 * math.cos(ang)
-        d.line((S(cfg, cx + r0 * math.sin(ang)), S(cfg, cy + r0 * math.cos(ang)),
-                S(cfg, midx), S(cfg, midy)),
-               fill=ink_rgba(cfg, 10), width=2)
-        d.line((S(cfg, midx), S(cfg, midy),
-                S(cfg, cx + r1 * math.sin(ang)), S(cfg, cy + r1 * math.cos(ang))),
-               fill=ink_rgba(cfg, 8), width=2)
+        if r0 < 2225 - cy:
+            d.line((S(cfg, cx + r0 * math.sin(ang)), S(cfg, cy + r0 * math.cos(ang)),
+                   S(cfg, midx), S(cfg, midy)),
+                   fill=ink_rgba(cfg, 10), width=2)
+        if midy < 2225:
+            d.line((S(cfg, midx), S(cfg, midy),
+                    S(cfg, cx + r1 * math.sin(ang)), S(cfg, cy + r1 * math.cos(ang))),
+                   fill=ink_rgba(cfg, 8), width=2)
     # illuminated cloud wisps inside the corridor of light
     for _ in range(380):
         th = rng.uniform(-0.22, 0.22)          # near the downward axis

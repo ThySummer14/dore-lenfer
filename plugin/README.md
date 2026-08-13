@@ -17,7 +17,7 @@ computed locally from `dore/vision.py` (Pillow + numpy; no network, no model).
   | `dore_eye_zoom` | ASCII crop view or 1:1 pixel window (stroke-level detail) |
   | `dore_eye_metrics` | named region stats, profile, FFT, exact-point probes |
   | `dore_eye_ink` | ink deposition map + n × n mean-ink grid |
-  | `dore_eye_critic` | run the per-canto critic (canto guessed from path or given) |
+  | `dore_eye_critic` | run the per-canto critic (critics exist for cantos 1–5; other cantos fall back to the generic report) |
 
 ## Mounting (dynamic, per session)
 
