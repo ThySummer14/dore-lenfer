@@ -73,4 +73,5 @@ critic.py / critic2.py / critic3.py 为自建视觉检查器）。
 
 每章文件夹内含最终版画、细节裁剪图与 `versions/`（全部迭代历史）。
 生成：`python3 dore/plateN.py <名字>.png`（N=1..6）
-自检：`python3 dore/criticN.py <路径>.png`
+自检：`python3 dore/criticN.py <路径>.png`，或统一入口
+`python3 dore/eye.py critic <路径>.png --canto N`（详见 `../README.md`）。

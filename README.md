@@ -110,6 +110,20 @@ Detail crops: `DORE_INFERNO/Chant_V_Paolo_et_Francesca/detail_*.png`.
 Iteration history: `DORE_INFERNO/Chant_V_Paolo_et_Francesca/versions/`.
 Inspector: `dore/critic5.py`.
 
+## Canto VI — `dore/plate6.py`
+
+**`DORE_INFERNO/Chant_VI_Cerbere/DORE_CERBERE.png`** — 2200 × 2860: the third
+circle of gluttony. Cerberus, the three-headed dog, barks over the spirits
+wallowing in the mire under an eternal freezing rain; Dante and Virgil cross
+the circle of mud, Ciacco rises from the sludge to speak with the pilgrims.
+
+> DANTE · L'ENFER — CHANT SIXIÈME — CERBÈRE
+> G. Doré inv. & sculp. — PARIS · M DCCC LXI
+
+Detail crops: `DORE_INFERNO/Chant_VI_Cerbere/detail_*.png`.
+Iteration history: `DORE_INFERNO/Chant_VI_Cerbere/versions/`.
+Inspector: none yet — use the generic `dore/eye.py report` path for now.
+
 ## The engine — `dore/plate.py`
 
 Pipeline: tone field (darkmap) → paper (tint, grain, vignette) → ink layers
@@ -179,7 +193,7 @@ and use the numeric diagnostics (`dore_eye_metrics` / `dore_eye_ink`) as
 cross-checks. The ASCII views remain the fallback for image-blind models,
 which is what this toolkit was invented for.
 
-The render engines live in `dore/plate.py` … `dore/plate5.py` (one per canto;
+The render engines live in `dore/plate.py` … `dore/plate6.py` (one per canto;
 each is a standalone script sharing the stroke primitives of `plate.py`).
 `plate.py` also hosts the shared primitives: supersampling helper `S`, ink
 layers via `strokes_layer`/`poly_mask`/`grad_mask`, `draw_hatch` (jittered,
